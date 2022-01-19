@@ -21,19 +21,19 @@ def train_test_split(X,y, test_ratio):
 
 # Sigmoid function
 def sigmoid(z):
-  return 1. / (1. + np.exp(-z))
+  return 1 / (1 + np.exp(-z))
 
 # Calculating cross-entropy
 def cross_entropy(t,y):
-  return - np.mean( t * np.log(y) + (1 - t) * np.log(1-y) )
+  return -( np.log(y[t == 1]).mean() + np.log(1-y[t == 0]).mean() )
 
 # Function to perform gradient descent
-def gradient_descent(x0,func,gradient,learning_rate=0.001,max_iter=2000):
+def gradient_descent(x0,func,gradient,learning_rate=0.001,max_iter=10000):
   x_new = x0
-  values = [func(x0)]
-  i = 0
-  while( i < max_iter ):
+  values = []
+
+  for i in range(max_iter):
     x_new = x_new - learning_rate*gradient(x_new)
     values.append(func(x_new))
-    i += 1
+
   return x_new, values
